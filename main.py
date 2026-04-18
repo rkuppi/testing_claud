@@ -1,30 +1,47 @@
-def generate_fibonacci(n):
-    """
-    Generate Fibonacci series up to n terms.
+class FibonacciGenerator:
+    """A class to generate and manage Fibonacci series."""
     
-    Args:
-        n (int): Number of terms in the Fibonacci series
+    def __init__(self, n):
+        """
+        Initialize the FibonacciGenerator.
         
-    Returns:
-        list: List containing Fibonacci series
-    """
-    if n <= 0:
-        return []
-    elif n == 1:
-        return [0]
+        Args:
+            n (int): Number of terms in the Fibonacci series
+        """
+        self.n = n
+        self.series = []
     
-    fib_series = [0, 1]
+    def generate(self):
+        """
+        Generate the Fibonacci series.
+        
+        Returns:
+            list: List containing Fibonacci series
+        """
+        if self.n <= 0:
+            self.series = []
+        elif self.n == 1:
+            self.series = [0]
+        else:
+            self.series = [0, 1]
+            for i in range(2, self.n):
+                next_term = self.series[i-1] + self.series[i-2]
+                self.series.append(next_term)
+        
+        return self.series
     
-    for i in range(2, n):
-        next_term = fib_series[i-1] + fib_series[i-2]
-        fib_series.append(next_term)
+    def get_series(self):
+        """Get the current Fibonacci series."""
+        return self.series
     
-    return fib_series
+    def display(self):
+        """Display the Fibonacci series."""
+        print(f"Fibonacci series with {self.n} terms:")
+        print(self.series)
 
 
 if __name__ == "__main__":
     # Example usage
-    num_terms = 10
-    result = generate_fibonacci(num_terms)
-    print(f"Fibonacci series with {num_terms} terms:")
-    print(result)
+    fib = FibonacciGenerator(10)
+    fib.generate()
+    fib.display()
